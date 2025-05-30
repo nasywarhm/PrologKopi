@@ -1,0 +1,77 @@
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+const menu = [
+  { id: 1, name: "Es Kopi Monolog", price: 9000 },
+  { id: 2, name: "Monolog Extra Shot", price: 15000 },
+  { id: 3, name: "Es Kopi Almond", price: 15000 },
+  { id: 4, name: "Kopi Salt Caramel", price: 15000 },
+  { id: 5, name: "Irish Kopi", price: 15000 },
+  { id: 6, name: "Es Kopi Nutella", price: 17000 },
+  { id: 7, name: "Es Kopi Berry", price: 15000 },
+  { id: 8, name: "Es Kopi Banana", price: 15000 },
+  { id: 9, name: "Lemon Tea", price: 15000 },
+  { id: 10, name: "Fresh Tea", price: 5000 },
+  { id: 11, name: "Violent Tea", price: 15000 },
+  { id: 12, name: "Tea on Berry's", price: 15000 },
+  { id: 13, name: "Matcha Latte", price: 17000 },
+];
+
+export default function MenuPage() {
+  const [cart, setCart] = useState([]);
+  const [paymentMethod, setPaymentMethod] = useState("");
+
+  const addToCart = (item) => {
+    setCart((prev) => [...prev, item]);
+  };
+
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+  return (
+    <div className="p-4 max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-center">Menu Prolog Kopi</h1>
+      <div className="grid grid-cols-1 gap-4">
+        {menu.map((item) => (
+          <Card key={item.id} className="flex justify-between items-center p-4">
+            <CardContent className="p-0">
+              <div>
+                <p className="text-lg font-semibold">{item.name}</p>
+                <p className="text-sm text-gray-500">Rp{item.price.toLocaleString()}</p>
+              </div>
+            </CardContent>
+            <Button onClick={() => addToCart(item)}>+ Tambah</Button>
+          </Card>
+        ))}
+      </div>
+
+      {cart.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-xl font-bold mb-2">Keranjang</h2>
+          <ul className="mb-4">
+            {cart.map((item, index) => (
+              <li key={index} className="text-sm">
+                {item.name} - Rp{item.price.toLocaleString()}
+              </li>
+            ))}
+          </ul>
+          <p className="font-semibold mb-2">Total: Rp{total.toLocaleString()}</p>
+
+          <label className="block mb-2">Pilih Pembayaran:</label>
+          <select
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            className="w-full border rounded p-2 mb-4"
+          >
+            <option value="">-- Pilih --</option>
+            <option value="qris">QRIS</option>
+            <option value="ewallet">E-Wallet</option>
+            <option value="tunai">Tunai</option>
+          </select>
+
+          <Button className="w-full">Kirim Pesanan</Button>
+        </div>
+      )}
+    </div>
+  );
+}
