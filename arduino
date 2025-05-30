@@ -1,0 +1,13 @@
+kopi-digital/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .gitignore
+├── index.html
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
